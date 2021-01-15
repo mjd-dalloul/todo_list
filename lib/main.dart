@@ -15,17 +15,17 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider<FirebaseConnectionBloc>(
           create: (_) => FirebaseConnectionBloc()..add(StartConnecting()),  //todo dependency injection
-          child: Root()
+          child: InitializeConnection()
       ),
     );
   }
 }
 
-class Root extends StatelessWidget {
+class InitializeConnection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: BlocBuilder<FirebaseConnectionBloc, FirebaseConnectionState>(
+       child: BlocBuilder<FirebaseConnectionBloc, FirebaseConnectionState>(
         builder: (context, state) {
           if(state is ConnectingToFirebase) {
             return Center(child: CircularProgressIndicator(),);
