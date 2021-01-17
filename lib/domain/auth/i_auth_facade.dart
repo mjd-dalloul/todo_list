@@ -5,13 +5,13 @@ import 'package:todo_list/domain/auth/value_objects.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class IAuthFacade {
-  Either<AuthFailure, Unit> registerWithEmailAndPassword({
+  Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
     @required EmailAddress emailAddress,
     @required Password password,
   });
-  Either<AuthFailure, Unit> signInWithEmailAndPassword({
+  Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword({
     @required EmailAddress emailAddress,
     @required Password password,
   });
-  Either<AuthFailure, Unit> signInWithGoogle();
+  Future<Either<AuthFailure, Unit>> signInWithGoogle();
 }
