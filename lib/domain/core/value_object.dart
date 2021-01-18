@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'errors.dart';
 import 'failures/failures.dart';
 
 
@@ -9,6 +10,7 @@ abstract class ValueObject<T> {
   const ValueObject();
   Either<ValueFailure<T>, T> get value;
   bool isValid() => value.isRight();
+  T getValue() => value.fold((f) => throw UnexpectedError(f), id);
   @override
   bool operator==(Object o) {
     if(identical(this, o)) return true;
