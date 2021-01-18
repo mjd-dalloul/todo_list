@@ -23,6 +23,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   Stream<SignInFormState> mapEventToState(
     SignInFormEvent event,
   ) async* {
+
     yield* event.map(
         emailChanged: (e) async* {
           yield state.copyWith(
@@ -45,6 +46,27 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
           yield state.copyWith(
               isSubmitting: true, authFailureOrSuccessOption: none());
         });
+    yield* event.map(emailChanged: (e) async* {
+      yield state.copyWith(
+          emailAddress: EmailAddress(e.email),
+          authFailureOrSuccessOption: none()
+      );
+    }, passwordChanged: (e) async* {
+      yield state.copyWith(
+          password: Password(e.password),
+          authFailureOrSuccessOption: none()
+      );
+    }, registerWithEmailAndPassword: (e) async* {
+      yield* _performActionOnAuthFacadeWithEmailAndPassword(
+          authFacade.registerWithEmailAndPassword);
+    }, signInWithEmailAndPassword: (e) async* {
+      yield* _performActionOnAuthFacadeWithEmailAndPassword(
+          authFacade.signInWithEmailAndPassword);
+    }, singInWithGmail: (e) async* {
+      yield state.copyWith(
+          isSubmitting: true,
+          authFailureOrSuccessOption: none());
+    });
   }
 
   Stream<SignInFormState> _performActionOnAuthFacadeWithEmailAndPassword(
