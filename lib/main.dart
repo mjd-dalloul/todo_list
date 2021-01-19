@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:todo_list/core/firbase_connection/bloc/firebase_connection_bloc.dart';
+import 'package:todo_list/injection.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  configureInjection(Environment.prod);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
