@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:injectable/injectable.dart';
 
 part 'firebase_connection_event.dart';
 part 'firebase_connection_state.dart';
-
+@injectable
 class FirebaseConnectionBloc extends Bloc<FirebaseConnectionEvent, FirebaseConnectionState> {
   FirebaseConnectionBloc() : super(FirebaseConnectionInitial());
   @override
