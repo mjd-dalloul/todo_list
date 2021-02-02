@@ -7,6 +7,7 @@ import 'package:todo_list/presentation/auth/widgets/sign_in_form.dart';
 import '../../injection.dart';
 
 class SignInPage extends StatelessWidget {
+  static const String route = '/SignInPage';
   @override
   Widget build(BuildContext context) {
     print(getIt<SignInFormBloc>());
