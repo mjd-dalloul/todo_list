@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/application/auth/bloc/auth_bloc.dart';
 import 'package:todo_list/presentation/auth/sign_in_page.dart';
+import 'package:todo_list/presentation/routes/router.gr.dart';
 
 class SplashPage extends StatelessWidget {
   static const String route = '/';
@@ -15,12 +17,12 @@ class SplashPage extends StatelessWidget {
           },
           authenticated: (_) =>
               print('AUTHENTICAtED'),
-          unauthenticated: (_) => Navigator.of(context).popAndPushNamed(SignInPage.route),
+          unauthenticated: (_) => ExtendedNavigator.of(context).replace(Routes.signInPage),
         );
       },
       child: const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
+        body: const Center(
+          child: const CircularProgressIndicator(),
         ),
       ),
     );

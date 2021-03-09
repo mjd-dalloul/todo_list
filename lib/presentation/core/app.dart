@@ -1,11 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/application/auth/bloc/auth_bloc.dart';
 import 'package:todo_list/injection.dart';
-import 'package:todo_list/presentation/auth/sign_in_page.dart';
-import 'package:todo_list/presentation/splash/splash_page.dart';
-
+import 'package:todo_list/presentation/routes/router.gr.dart' as app_router;
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,12 +17,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        initialRoute: '/',
-        routes: {
-          SplashPage.route : (context) => SplashPage(),
-          SignInPage.route: (context) => SignInPage(),
-        },
-        title: 'Flutter Demo',
+        title: 'Notes',
+        builder: ExtendedNavigator.builder(router: app_router.Router()),
         theme: ThemeData.light().copyWith(
           inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(

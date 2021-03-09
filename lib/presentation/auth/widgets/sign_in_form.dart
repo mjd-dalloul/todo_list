@@ -26,7 +26,9 @@ class SignInForm extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Form(
-            autovalidate: state.showErrorMessages,
+            autovalidateMode: state.showErrorMessages
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
             child: ListView(
               children: [
                 const SizedBox(

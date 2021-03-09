@@ -6,9 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:todo_list/domain/auth/auth_failure.dart';
 import 'package:todo_list/domain/auth/i_auth_facade.dart';
-import 'package:todo_list/domain/auth/user.dart';
 import 'package:todo_list/domain/auth/value_objects.dart';
-import 'package:todo_list/domain/core/value_object.dart';
 import 'firebase_user_mapper.dart';
 @Injectable(as: IAuthFacade)
 @lazySingleton
@@ -44,7 +42,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: passwordStr);
       return Right(unit);
-    } on PlatformException catch (e) {
+    } catch (e) {
       if (e.code == 'INVALID_EMAIL' || e.code == 'WRONG_PASSWORD') {
         return Left(const AuthFailure.invalidEmailAndPassword());
       } else
