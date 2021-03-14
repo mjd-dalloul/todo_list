@@ -13,7 +13,10 @@ abstract class ValueObject<T> {
 
   bool isValid() => value.isRight();
 
-  T getValue() => value.fold((f) => throw UnexpectedError(f), id);
+  T getValue() => value.fold((f) => throw UnexpectedError(f), (r) => r);
+
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit =>
+      value.fold((f) => left(f), (r) => right(unit));
 
   @override
   bool operator ==(Object o) {
@@ -39,5 +42,4 @@ class UniqueId extends ValueObject<String> {
   }
 
   factory UniqueId.fromUniqueString(String id) => UniqueId._(right(id));
-
 }

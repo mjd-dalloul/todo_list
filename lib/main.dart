@@ -7,6 +7,6 @@ import 'package:todo_list/presentation/core/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  configureInjection(Environment.prod);
+  configureInjection();
   runApp(MyApp());
 }

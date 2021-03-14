@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) =>
-        getIt<AuthBloc>()
+        sl<AuthBloc>()
           ..add(const AuthEvent.authCheckRequested()),
         ),
       ],

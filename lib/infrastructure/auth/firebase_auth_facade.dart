@@ -8,8 +8,8 @@ import 'package:todo_list/domain/auth/auth_failure.dart';
 import 'package:todo_list/domain/auth/i_auth_facade.dart';
 import 'package:todo_list/domain/auth/value_objects.dart';
 import 'firebase_user_mapper.dart';
-@Injectable(as: IAuthFacade)
-@lazySingleton
+
+
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
