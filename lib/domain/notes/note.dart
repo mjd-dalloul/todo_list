@@ -26,6 +26,13 @@ abstract class Note with _$Note {
         todoList: List3(emptyList()),
       );
 
+  /// like in todoItem chen of checks for value objects in note entity
+  /// entity can have another entity, explain this validation
+  /// function andThen take a Either type fold it and return left or right
+  /// if left is return break the chen if not return the right and continue
+  /// check for body then for todoList then map each item in todoList
+  /// to his failureOption and make a list of (some or none) if there is
+  /// at least one some then there is a failure in this entity
   Option<ValueFailure<dynamic>> get failureOption => body.failureOrUnit
       .andThen(todoList.failureOrUnit)
       .andThen(todoList

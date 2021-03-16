@@ -21,6 +21,13 @@ abstract class TodoItem with _$TodoItem {
         done: false,
       );
 
+  /// value type is Either we fold it since the return type is Option
+  /// so the return will "some(value)" or "none = void",
+  /// we need to know if there is an failure if there is a failure
+  /// we return some(failure) if no failure we return none
+  /// please be aware that todoItem is an entity so we do not use
+  /// isValid on every value object we use this approach (clean code)
+  /// another example of chen the value objects in note entity
   Option<ValueFailure<dynamic>> get failureOption =>
       name.value.fold((f) => some(f), (_) => none());
 }

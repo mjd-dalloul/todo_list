@@ -12,6 +12,9 @@ class NoteBody extends ValueObject<String> {
   @override
   final Either<ValueFailure<String>, String> value;
 
+  /// flat map to make a chen of checks
+  /// input take a function validator if return true
+  /// it continue in the chen if false break the chen
   factory NoteBody(String input) => NoteBody._(
         validateMaxStringLength(input, maxLength)
             .flatMap(validateStringNotEmpty),
@@ -66,6 +69,7 @@ class List3<T> extends ValueObject<KtList<T>> {
 
   const List3._(this.value);
 
+  /// getOrElse if there is a value return it of not return default vale
   int get length => value.getOrElse(() => emptyList()).size;
   bool get isFull => length == maxLength;
 }

@@ -8,6 +8,8 @@ class EmailAddress extends ValueObject<String> {
 
   const EmailAddress._(this.value);
 
+  /// every time user change the email while his writing we modify current
+  /// value and validate the input
   factory EmailAddress(String input) {
     return EmailAddress._(
       validateEmailAddress(input),
@@ -19,6 +21,8 @@ class Password extends ValueObject<String> {
 
   const Password._(this.value);
 
+  /// every time user change the password while his writing we modify current
+  /// value and validate the input
   factory Password(String input) {
     return Password._(
       validatePassword(input),

@@ -21,14 +21,18 @@ abstract class NoteDto with _$NoteDto {
     @required String body,
     @required int color,
     @required List<TodoItemDto> todoList,
-    @required
-    @ServerTimestampConverter()
-        FieldValue serverTimeStamp, // for note register time
+    @required @ServerTimestampConverter() FieldValue serverTimeStamp,
+    /// for note register time (JSON Serlizer
+    /// can not serlize this type of data so we need to tell him how to convert it
   }) = _NoteDto;
 
-  factory NoteDto.fromDomain(Note note) => NoteDto(
+  /// convert the view model to model to send to database
+  factory NoteDto.fromDomain(Note note) =>
+      NoteDto(
         body: note.body.getValue(),
-        color: note.color.getValue().value,
+        color: note.color
+            .getValue()
+            .value,
         todoList: note.todoList
             .getValue()
             .map((todoItem) => TodoItemDto.fromDomain(todoItem))
@@ -36,12 +40,15 @@ abstract class NoteDto with _$NoteDto {
         serverTimeStamp: FieldValue.serverTimestamp(),
       );
 
-  Note toDomain() => Note(
-      id: UniqueId.fromUniqueString(id),
-      body: NoteBody(body),
-      todoList: List3(
-          todoList.map((todoItem) => todoItem.toDomain()).toImmutableList()),
-      color: NoteColor(Color(color)));
+  /// convert the model coming from database to view model
+  Note toDomain() =>
+      Note(
+          id: UniqueId.fromUniqueString(id),
+          body: NoteBody(body),
+          todoList: List3(
+              todoList.map((todoItem) => todoItem.toDomain())
+                  .toImmutableList()),
+          color: NoteColor(Color(color)));
 
   factory NoteDto.fromJson(Map<String, dynamic> json) =>
       _$NoteDtoFromJson(json);
@@ -60,13 +67,15 @@ abstract class TodoItemDto with _$TodoItemDto {
     @required bool done,
   }) = _TodoItemDto;
 
-  factory TodoItemDto.fromDomain(TodoItem todoItem) => TodoItemDto(
+  factory TodoItemDto.fromDomain(TodoItem todoItem) =>
+      TodoItemDto(
         id: todoItem.id.getValue(),
         name: todoItem.name.getValue(),
         done: todoItem.done,
       );
 
-  TodoItem toDomain() => TodoItem(
+  TodoItem toDomain() =>
+      TodoItem(
         id: UniqueId.fromUniqueString(id),
         name: TodoName(name),
         done: done,
@@ -80,9 +89,8 @@ class ServerTimestampConverter implements JsonConverter<FieldValue, Object> {
   const ServerTimestampConverter();
 
   @override
-  FieldValue fromJson(Object json) {
-    return FieldValue.serverTimestamp();
-  }
+  FieldValue fromJson(Object json) => FieldValue.serverTimestamp();
+
 
   @override
   Object toJson(FieldValue fieldValue) => fieldValue;

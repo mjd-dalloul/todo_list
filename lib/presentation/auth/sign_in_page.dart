@@ -9,7 +9,6 @@ import '../../injection.dart';
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(sl<SignInFormBloc>());
     return Scaffold(
       body: BlocProvider<SignInFormBloc>(
         create: (context) => sl(),
