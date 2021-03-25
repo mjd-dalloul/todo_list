@@ -4,3 +4,5 @@ class UnexpectedError extends Error {
   final ValueFailure failure;
   UnexpectedError(this.failure);
 }
+class NotAuthenticatedError extends Error {
+}
