@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:todo_list/application/auth/bloc/auth_bloc.dart';
 import 'package:todo_list/application/auth/sign_in_form/sign_in_form_bloc.dart';
+import 'package:todo_list/presentation/routes/router.gr.dart';
 
 class SignInForm extends StatelessWidget {
   @override
@@ -13,15 +16,20 @@ class SignInForm extends StatelessWidget {
         state.authFailureOrSuccessOption.fold(
             () {},
             (either) => either.fold(
-                (failure) => FlushbarHelper.createError(
+                    (failure) => FlushbarHelper.createError(
                         message: failure.map(
                             cancelledByUser: (_) => 'Cancelled',
                             serverError: (_) => 'Server error',
                             emailAlreadyInUse: (_) => 'Email already in use',
                             invalidEmailAndPassword: (_) =>
-                                'Invalid email and password combination'))
-                    .show(context),
-                (r) => null));
+                                'Invalid email and password combination')).show(
+                        context), (_) {
+                  ExtendedNavigator.of(context)
+                      .replace(Routes.notesOverviewPage);
+                  context
+                      .read<AuthBloc>()
+                      .add(const AuthEvent.authCheckRequested());
+                }));
       },
       builder: (context, state) {
         return SafeArea(
@@ -114,6 +122,14 @@ class SignInForm extends StatelessWidget {
                 const SizedBox(
                   height: 32,
                 ),
+                if (state.isSubmitting) ...[
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  const Center(
+                    child: const CircularProgressIndicator(),
+                  )
+                ],
                 Align(
                   alignment: Alignment.centerRight,
                   child: RaisedButton(
@@ -199,14 +215,7 @@ class SignInForm extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (state.isSubmitting) ...[
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  const Center(
-                    child: const CircularProgressIndicator(),
-                  )
-                ]
+
               ],
             ),
           ),

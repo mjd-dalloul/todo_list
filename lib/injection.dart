@@ -1,9 +1,9 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_list/application/notes/note_actor/note_actor_bloc.dart';
+import 'package:todo_list/application/notes/note_form/note_form_bloc.dart';
 import 'package:todo_list/application/notes/note_watcher/note_watcher_bloc.dart';
 import 'package:todo_list/domain/notes/i_note_repository.dart';
 import 'package:todo_list/infrastructure/notes/note_repository.dart';
@@ -28,4 +28,5 @@ void configureInjection() {
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl<IAuthFacade>()));
   sl.registerFactory(() => NoteWatcherBloc(sl()));
   sl.registerFactory(() => NoteActorBloc(sl()));
+  sl.registerFactory(() => NoteFormBloc(sl()));
 }

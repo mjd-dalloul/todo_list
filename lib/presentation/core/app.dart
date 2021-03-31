@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
         title: 'Notes',
         builder: ExtendedNavigator.builder(router: app_router.Router()),
         theme: ThemeData.light().copyWith(
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor:Colors.blue[900],
+          ),
           inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
