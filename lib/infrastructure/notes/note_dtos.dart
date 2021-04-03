@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -53,8 +54,10 @@ abstract class NoteDto with _$NoteDto {
   factory NoteDto.fromJson(Map<String, dynamic> json) =>
       _$NoteDtoFromJson(json);
 
-  factory NoteDto.fromFireStore(DocumentSnapshot doc) =>
-      NoteDto.fromJson(doc.data()).copyWith(id: doc.id);
+  factory NoteDto.fromFireStore(DocumentSnapshot doc) {
+    print(doc.data());
+    return  NoteDto.fromJson(doc.data()).copyWith(id: doc.id);
+  }
 }
 
 @freezed

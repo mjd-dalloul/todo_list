@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -22,6 +23,9 @@ void configureInjection() {
           () => GoogleSignIn());
   sl.registerLazySingleton<INoteRepository>(
           () => NoteRepository(sl()));
+  sl.registerLazySingleton(() => FirebaseFirestore.instance);
+
+  ///BLOC
   sl.registerFactory<IAuthFacade>(
           () => FirebaseAuthFacade(sl<FirebaseAuth>(), sl<GoogleSignIn>()));
   sl.registerFactory<SignInFormBloc>(() => SignInFormBloc(sl<IAuthFacade>()));
