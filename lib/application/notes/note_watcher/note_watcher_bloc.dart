@@ -53,7 +53,7 @@ class NoteWatcherBloc extends Bloc<NoteWatcherEvent, NoteWatcherState> {
             return NoteWatcherState.loadFailure(f);
           } ,
           (notes) {
-            print(notes);
+            print(notes.size);
             return NoteWatcherState.loadSuccess(notes);
         }
         );
