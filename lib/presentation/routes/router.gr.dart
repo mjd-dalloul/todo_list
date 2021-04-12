@@ -9,7 +9,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/notes/note.dart';
 import '../auth/sign_in_page.dart';
+import '../notes/note_form_page.dart';
 import '../notes/notes_over_view/notes_overview_page.dart';
 import '../splash/splash_page.dart';
 
@@ -17,10 +19,12 @@ class Routes {
   static const String splashPage = '/';
   static const String signInPage = '/sign-in-page';
   static const String notesOverviewPage = '/notes-overview-page';
+  static const String noteFormPage = '/note-form-page';
   static const all = <String>{
     splashPage,
     signInPage,
     notesOverviewPage,
+    noteFormPage,
   };
 }
 
@@ -31,6 +35,7 @@ class Router extends RouterBase {
     RouteDef(Routes.splashPage, page: SplashPage),
     RouteDef(Routes.signInPage, page: SignInPage),
     RouteDef(Routes.notesOverviewPage, page: NotesOverviewPage),
+    RouteDef(Routes.noteFormPage, page: NoteFormPage),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -53,6 +58,14 @@ class Router extends RouterBase {
         settings: data,
       );
     },
+    NoteFormPage: (data) {
+      final args = data.getArgs<NoteFormPageArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => NoteFormPage(editedNote: args.editedNote),
+        settings: data,
+        fullscreenDialog: true,
+      );
+    },
   };
 }
 
@@ -67,4 +80,22 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
 
   Future<dynamic> pushNotesOverviewPage() =>
       push<dynamic>(Routes.notesOverviewPage);
+
+  Future<dynamic> pushNoteFormPage({
+    @required Note editedNote,
+  }) =>
+      push<dynamic>(
+        Routes.noteFormPage,
+        arguments: NoteFormPageArguments(editedNote: editedNote),
+      );
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// NoteFormPage arguments holder class
+class NoteFormPageArguments {
+  final Note editedNote;
+  NoteFormPageArguments({@required this.editedNote});
 }
