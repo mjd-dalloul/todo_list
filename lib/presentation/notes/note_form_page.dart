@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/application/notes/note_form/note_form_bloc.dart';
 import 'package:todo_list/domain/notes/note.dart';
 import 'package:todo_list/injection.dart';
+import 'package:todo_list/presentation/notes/notes_over_view/widgets/body_field_widget.dart';
 import 'package:todo_list/presentation/routes/router.gr.dart';
 
 class NoteFormPage extends StatelessWidget {
@@ -118,6 +119,18 @@ class NoteFormPageScaffold extends StatelessWidget {
           ),
         ],
       ),
+      body: BlocBuilder<NoteFormBloc, NoteFormState>(
+          buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
+          builder: (context, state) {
+            return Form(
+              child: SingleChildScrollView(
+                  child: Column(
+                children: [
+                  const BodyField(),
+                ],
+              )),
+            );
+          }),
     );
   }
 }
