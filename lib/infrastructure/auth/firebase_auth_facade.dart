@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_list/domain/auth/user.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_list/domain/auth/auth_failure.dart';
 import 'package:todo_list/domain/auth/i_auth_facade.dart';
@@ -41,7 +40,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: passwordStr);
       return Right(unit);
-    } catch (e) {
+    } on FirebaseAuthException catch (e)  {
       print('ERROR ${e.code}');
       if (e.code == 'INVALID_EMAIL' || e.code == 'WRONG_PASSWORD') {
         return Left(const AuthFailure.invalidEmailAndPassword());
@@ -62,7 +61,7 @@ class FirebaseAuthFacade implements IAuthFacade {
           idToken: googleAuthentication.idToken,
           accessToken: googleAuthentication.accessToken);
       await _firebaseAuth.signInWithCredential(authCredential);
-    } on PlatformException {
+    } on FirebaseAuthException catch (_)  {
       return Left(const AuthFailure.serverError());
     }
     return Right(unit);
