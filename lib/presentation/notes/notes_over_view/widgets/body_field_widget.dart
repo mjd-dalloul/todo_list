@@ -30,7 +30,7 @@ class BodyField extends HookWidget {
                 NoteFormEvent.bodyChanged(value),
               ),
           validator: (_) =>
-              context.read<NoteFormBloc>().state.note.body.failureOrUnit.fold(
+              context.read<NoteFormBloc>().state.note.body.value.fold(
                   (f) => f.maybeMap(
                         empty: (f) => 'Cannot be empty',
                         exceedingLength: (f) =>

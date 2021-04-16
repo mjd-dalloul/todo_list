@@ -10,6 +10,7 @@ import 'package:todo_list/injection.dart';
 import 'package:todo_list/presentation/notes/notes_form/misc/todo_item_presentation_classes.dart';
 import 'package:todo_list/presentation/notes/notes_over_view/widgets/body_field_widget.dart';
 import 'package:todo_list/presentation/notes/widgets/add_todo_tile.dart';
+import 'package:todo_list/presentation/notes/widgets/todo_list_widget.dart';
 import 'package:todo_list/presentation/routes/router.gr.dart';
 
 import 'notes_over_view/widgets/color_field_widget.dart';
@@ -36,13 +37,14 @@ class NoteFormPage extends StatelessWidget {
                 either.fold(
                   (failure) {
                     FlushbarHelper.createError(
-                        message: failure.map(
-                            unexpected: (_) =>
-                                'Unexpected error occurred, please contact support',
-                            insufficientPermission: (_) =>
-                                'Insufficient permission ❌',
-                            unableToUpdate: (_) =>
-                                'Couldn\'t update the note. Was it deleted from author'));
+                      message: failure.map(
+                          unexpected: (_) =>
+                              'Unexpected error occurred, please contact support',
+                          insufficientPermission: (_) =>
+                              'Insufficient permission ❌',
+                          unableToUpdate: (_) =>
+                              'Couldn\'t update the note. Was it deleted from author'),
+                    ).show(context);
                   },
                   (_) => ExtendedNavigator.of(context).popUntil((route) =>
                       route.settings.name == Routes.notesOverviewPage),
@@ -73,7 +75,7 @@ class SavingInProgressOverLay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      ignoring: isSaving,
+      ignoring: !isSaving,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         color: isSaving ? Colors.black.withOpacity(.8) : Colors.transparent,
@@ -135,6 +137,7 @@ class NoteFormPageScaffold extends StatelessWidget {
                   children: [
                     const BodyField(),
                     const ColorField(),
+                    const TodoList(),
                     const AddTodoTile(),
                   ],
                 )),

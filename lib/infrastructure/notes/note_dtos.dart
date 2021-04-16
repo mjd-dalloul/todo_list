@@ -29,6 +29,7 @@ abstract class NoteDto with _$NoteDto {
   /// convert the view model to model to send to database
   factory NoteDto.fromDomain(Note note) =>
       NoteDto(
+        id: note.id.getValue(),
         body: note.body.getValue(),
         color: note.color
             .getValue()

@@ -9,6 +9,7 @@ import 'package:todo_list/presentation/notes/notes_form/misc/build_context_x.dar
 import 'package:kt_dart/kt.dart';
 
 class TodoList extends StatelessWidget {
+  const TodoList();
   @override
   Widget build(BuildContext context) {
     return BlocListener<NoteFormBloc, NoteFormState>(
@@ -52,7 +53,7 @@ class TodoTile extends HookWidget {
         context.formTodos.getOrElse(index, (_) => TodoItemPrimitive.empty());
     return ListTile(
       leading: Checkbox(
-        value: true,
+        value: todoItemPrimitive.done,
         onChanged: (value) {
           context.formTodos = context.formTodos.map(
             (listTodo) => listTodo == todoItemPrimitive
