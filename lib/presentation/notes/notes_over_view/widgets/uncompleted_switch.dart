@@ -8,7 +8,6 @@ class UncompletedSwitch extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final toggleState = useState(false);
-    print(toggleState.value);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: InkResponse(

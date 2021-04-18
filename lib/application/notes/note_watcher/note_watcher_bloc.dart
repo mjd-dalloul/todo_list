@@ -46,14 +46,11 @@ class NoteWatcherBloc extends Bloc<NoteWatcherEvent, NoteWatcherState> {
         );
       },
       notesReceived: (e) async* {
-        print('data arrive');
         yield e.failureOrNotes.fold(
           (f) {
-            print(f);
             return NoteWatcherState.loadFailure(f);
           } ,
           (notes) {
-            print(notes.size);
             return NoteWatcherState.loadSuccess(notes);
         }
         );

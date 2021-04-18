@@ -55,7 +55,6 @@ abstract class NoteDto with _$NoteDto {
       _$NoteDtoFromJson(json);
 
   factory NoteDto.fromFireStore(DocumentSnapshot doc) {
-    print(doc.data());
     return  NoteDto.fromJson(doc.data()).copyWith(id: doc.id);
   }
 }

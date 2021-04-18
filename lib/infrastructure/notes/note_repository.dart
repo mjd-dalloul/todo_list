@@ -15,7 +15,6 @@ class NoteRepository implements INoteRepository {
 
   @override
   Stream<Either<NoteFailure, KtList<Note>>> watchAll() async* {
-    print('WATCH ALL');
     final userDoc = await fireStore.userDocument();
     yield* userDoc.noteCollection
         .orderBy('serverTimeStamp', descending: true)
@@ -33,7 +32,6 @@ class NoteRepository implements INoteRepository {
             error.message.contains('PERMISSION_DENIED')) {
           return left(const NoteFailure.insufficientPermission());
         } else {
-          print(error);
           return left(const NoteFailure.unexpected());
         }
       },

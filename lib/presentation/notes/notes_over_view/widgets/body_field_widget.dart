@@ -18,6 +18,9 @@ class BodyField extends HookWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: TextFormField(
+          autovalidateMode: context.read<NoteFormBloc>().state.showErrorMessages
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
           controller: textEditingController,
           decoration: InputDecoration(
             counterText: '',
