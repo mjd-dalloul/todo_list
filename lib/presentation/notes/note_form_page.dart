@@ -129,8 +129,6 @@ class NoteFormPageScaffold extends StatelessWidget {
       body: BlocBuilder<NoteFormBloc, NoteFormState>(
           buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
           builder: (context, state) {
-            print('state.showErrorMessages');
-            print(state.showErrorMessages);
             return ChangeNotifierProvider(
               create: (_) => FormTodos(),
               child: Form(
